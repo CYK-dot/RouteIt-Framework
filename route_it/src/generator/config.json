@@ -1,0 +1,16 @@
+{
+    "vlan": {
+        "template": "./rti_gen_vlan_templ.j2",
+        "output": "../rti_generated_vlanid.h",
+        "submodule": {
+            "full_project": {
+                "path": "../../../../",
+                "status": "enable"
+            },
+            "example": {
+                "path": "../example/",
+                "status": "disable"
+            }
+        }
+    }
+}

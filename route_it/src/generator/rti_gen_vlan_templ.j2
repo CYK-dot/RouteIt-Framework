@@ -1,0 +1,16 @@
+/**
+ * @file rti_generated_vlanid.h
+ * @brief generated header file for vlan id
+ * ---------------------------------------------------------------------------
+ * @note this file is auto generated, do not edit manually
+ * @version {{ DATE }}
+ */
+#ifndef __RTI_GENERATED_VLANID_H__
+#define __RTI_GENERATED_VLANID_H__
+
+#define RTI_VLANID_INVALID 0
+{%- for VLAN in VLANS %}
+#define RTI_VLANID_{{ VLAN.NAME }} {{ VLAN.ID }}
+{%- endfor %}
+
+#endif
