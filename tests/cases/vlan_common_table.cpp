@@ -13,7 +13,6 @@
 #include "rti_vlan.h"
 
 /* Config macros ------------------------------------------------------------------*/
-//#define RTI_TEST_VLAN_TABLE_COMMON
 #ifdef RTI_TEST_VLAN_TABLE_COMMON
 
 /* Mock variables and functions  --------------------------------------------------*/

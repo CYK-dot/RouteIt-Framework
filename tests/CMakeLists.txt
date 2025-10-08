@@ -9,10 +9,12 @@ set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0")
 
+include(../route_it/rti_util.cmake)
+
 # functions
 function(create_split_exec target_name source_file definitions)
     message(STATUS "Creating target ${target_name} with definitions: ${definitions}")
-    message(STATUS "source_files: ${source_file}")
+
     add_executable(${target_name} ${source_file})
     target_compile_definitions(${target_name} PRIVATE ${definitions})
     target_compile_options(${target_name} PRIVATE
@@ -24,28 +26,10 @@ function(create_split_exec target_name source_file definitions)
         -fno-elide-constructors
     )
     target_link_libraries(${target_name} PRIVATE
-        rti_framework
         gtest
         gtest_main
     )
-    target_link_directories(${target_name}
-        PRIVATE ${CMAKE_SOURCE_DIR}/../route_it/ld
-    )
-    if(WIN32)
-        target_link_options(${target_name} PRIVATE
-            -Wl,--subsystem,console
-            # -Wl,--entry,mainCRTStartup
-            -Wl,--file-alignment,4096
-            -Wl,--section-alignment,4096
-        )
-        target_link_options(${target_name}
-            PRIVATE -Wl,-T${CMAKE_CURRENT_SOURCE_DIR}/linker_mingw.ld
-        )
-    else()
-        target_link_options(${target_name}
-            PRIVATE -Wl,-T${CMAKE_CURRENT_SOURCE_DIR}/linker_gcc.ld
-        )
-    endif()
+    rti_add_exec_dependency(${target_name} "YES")
 endfunction()
 
 # gtest-framework
@@ -67,7 +51,7 @@ file(GLOB_RECURSE testcases_cpp ${CMAKE_CURRENT_SOURCE_DIR}/cases/*.cpp)
 # testcase executable
 create_split_exec(RouteItFramework_Test
     "${testcases_cpp}"
-    ""
+    "RTI_TEST_COMMON"
 )
 create_split_exec(RouteItFramework_TestVlanEmpty
     "${testcases_cpp}"
@@ -76,4 +60,8 @@ create_split_exec(RouteItFramework_TestVlanEmpty
 create_split_exec(RouteItFramework_TestVlanCommon
     "${testcases_cpp}"
     "RTI_TEST_VLAN_TABLE_COMMON"
+)
+create_split_exec(RouteItFramework_TestVlanGenerate
+    "${testcases_cpp}"
+    "RTI_TEST_VLAN_TABLE_GENERATE"
 )
