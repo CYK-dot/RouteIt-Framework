@@ -1,0 +1,46 @@
+name: C++ CI with GTest
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        token: ${{ secrets.GITHUB_TOKEN }}
+      
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake g++ build-essential
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Build tests
+      run: |
+        cd ./tests
+        mkdir -p build
+        cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Release
+        make -j$(nproc)
+        
+    - name: Run tests
+      run: |
+        cd ./tests/build
+        ./RouteItFramework_Test
+        ./RouteItFramework_TestVlanCommon
+        ./RouteItFramework_TestVlanEmpty
+        
+    - name: Test status
+      run: echo "Good Job! All tests passed!"

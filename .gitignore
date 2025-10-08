@@ -53,3 +53,14 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# rti_test build
+tests/build/
+__pycache__/
+
+# VSCode
+.vscode/.BROWSE.*
+.vscode/settings.json
+
+# documentation
+route_it/doc/

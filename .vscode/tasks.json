@@ -1,0 +1,142 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "if exist tests\\build rmdir /s /q tests\\build && mkdir tests\\build"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "cmake",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-G",
+                "MinGW Makefiles",
+                ".."
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/tests/build"
+            },
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "dependsOn": "clean"
+        },
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "mingw32-make",
+            "args": [
+                "-j8"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/tests/build"
+            },
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "dependsOn": "cmake"
+        },
+        {
+            "label": "run",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-Command",
+                "cd 'tests/build'; $env:GTEST_COLOR=1; .\\RouteItFramework_Test.exe"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "clean-build",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "clean",
+                "cmake",
+                "build"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "clean-build-run",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "clean",
+                "cmake",
+                "build",
+                "run"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "build-run",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "build",
+                "run"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "simple-build",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "cd tests\\build && (if exist * rmdir /s /q * 2>nul) && cmake -G \"MinGW Makefiles\" .. && mingw32-make -j8"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "simple-build-run",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "cd tests\\build && (if exist * rmdir /s /q * 2>nul) && cmake -G \"MinGW Makefiles\" .. && mingw32-make -j8 && RouteItFramework_Test.exe"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            }
+        }
+    ]
+}
