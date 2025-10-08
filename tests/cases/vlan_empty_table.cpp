@@ -30,7 +30,7 @@ static RTI_VLAN_IFX mock_vlan_ifx = {
     mock_create_consumer,
     mock_delete_consumer
 };
-static RTI_VLAN_DESC mock_vlan_desc = {&mock_vlan_ifx, "VLAN1", 1};
+static RTI_VLAN_DESC mock_vlan_desc = {&mock_vlan_ifx, (char *)"VLAN1", 1};
 
 static void* mock2_create(void) { return nullptr; }
 static void mock2_delete(void*) {}
@@ -46,8 +46,8 @@ static RTI_VLAN_IFX mock2_vlan_ifx = {
     mock2_create_consumer,
     mock2_delete_consumer
 };
-static RTI_VLAN_DESC mock2_vlan_desc = {&mock2_vlan_ifx, "VLAN2", 2};
-static RTI_VLAN_DESC mock3_vlan_desc = {&mock2_vlan_ifx, "VLAN3", 3};
+static RTI_VLAN_DESC mock2_vlan_desc = {&mock2_vlan_ifx, (char *)"VLAN2", 2};
+static RTI_VLAN_DESC mock3_vlan_desc = {&mock2_vlan_ifx, (char *)"VLAN3", 3};
 
 /* Test suites --------------------------------------------------------------------*/
 
@@ -161,7 +161,7 @@ TEST_F(VlanDynamicEmptyTest, SelectFromEmptyDynamicTable) {
  */
 TEST_F(VlanEmptyTest, DynamicFunctionsWhenNotSetup) {
     size_t count;
-    RTI_VLAN_DESC desc = {&mock_vlan_ifx, "test", 1};
+    RTI_VLAN_DESC desc = {&mock_vlan_ifx, (char *)"test", 1};
 
     EXPECT_NE(RTI_VlanDynamicRegister(&desc), RTI_OK);
     EXPECT_NE(RTI_VlanDynamicIsRegister(&desc), RTI_OK);
@@ -170,7 +170,7 @@ TEST_F(VlanEmptyTest, DynamicFunctionsWhenNotSetup) {
 }
 TEST_F(VlanDynamicEmptyTest, DynamicFunctionsWhenSetupEmptyTable) {
     size_t count;
-    RTI_VLAN_DESC desc = {&mock_vlan_ifx, "test", 1};
+    RTI_VLAN_DESC desc = {&mock_vlan_ifx, (char *)"test", 1};
 
     EXPECT_NE(RTI_VlanDynamicRegister(&desc), RTI_OK);
     EXPECT_NE(RTI_VlanDynamicIsRegister(&desc), RTI_OK);
@@ -221,7 +221,7 @@ TEST_F(VlanStaticEmptyDynamicNoEmptyTest, DynamicRegisterStopWhenFull) {
     EXPECT_EQ(result, RTI_OK) << "dynamic register failed";
     // register again
     result = RTI_VlanDynamicRegister(&mock3_vlan_desc);
-    EXPECT_EQ(result, RTI_OK) << "dynamic register failed";
+    EXPECT_NE(result, RTI_OK) << "dynamic register failed";
     // check free size
     size_t count, countAll;
     result = RTI_VlanDynamicGetFreeCount(&count);

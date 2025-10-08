@@ -25,7 +25,7 @@
 #define RTI_VLAN_REGISTER_STATIC(VLAN_IFX_ADDRESS, VLAN_NAME) \
     const RTI_VLAN_DESC RTI_VLAN_##VLAN_NAME = { \
         .ifx = VLAN_IFX_ADDRESS, \
-        .name = #VLAN_NAME, \
+        .name = (char *)#VLAN_NAME, \
         .id = RTI_VLANID_##VLAN_NAME, \
     };\
     RTI_TYPE_SECTION_VLAN_USED const RTI_VLAN_DESC *RTI_VLAN_##VLAN_NAME##_PTR = &RTI_VLAN_##VLAN_NAME
@@ -40,7 +40,7 @@
 #define RTI_VLAN_REGISTER_STATIC_WITH_ID(VLAN_IFX_ADDRESS, VLAN_NAME, VLAN_ID) \
     const RTI_VLAN_DESC RTI_VLAN_##VLAN_NAME = { \
         .ifx = VLAN_IFX_ADDRESS, \
-        .name = #VLAN_NAME, \
+        .name = (char *)#VLAN_NAME, \
         .id = VLAN_ID, \
     };\
     RTI_TYPE_SECTION_VLAN_USED const RTI_VLAN_DESC *RTI_VLAN_##VLAN_NAME##_PTR = &RTI_VLAN_##VLAN_NAME

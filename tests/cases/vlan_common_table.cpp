@@ -63,7 +63,7 @@ static RTI_VLAN_IFX mock3_vlan_ifx = {
     mock3_create_consumer,
     mock3_delete_consumer
 };
-static RTI_VLAN_DESC mock3_vlan_desc = {&mock3_vlan_ifx, "VLAN3", 3};
+static RTI_VLAN_DESC mock3_vlan_desc = {&mock3_vlan_ifx, (char *)"VLAN3", 3};
 static RTI_VLAN_IFX mock4_vlan_ifx = {
     mock3_create,
     mock3_delete, 
@@ -72,7 +72,7 @@ static RTI_VLAN_IFX mock4_vlan_ifx = {
     mock3_create_consumer,
     mock3_delete_consumer
 };
-static RTI_VLAN_DESC mock4_vlan_desc = {&mock4_vlan_ifx, "VLAN4", 4};
+static RTI_VLAN_DESC mock4_vlan_desc = {&mock4_vlan_ifx, (char *)"VLAN4", 4};
 
 /* Test suites --------------------------------------------------------------------*/
 

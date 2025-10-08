@@ -56,7 +56,7 @@ static size_t g_RTI_vlanRecordUsedCnt =0;
  * @return true The dynamic VLAN table is uninitialized.
  * @return false The dynamic VLAN table is initialized.
  */
-RTI_FORCE_INLINE static bool RTI_VlanIsDynamicUninitialized(void)
+static inline bool RTI_VlanIsDynamicUninitialized(void)
 {
     return (g_RTI_vlanTableStartPtr == __start_rti_vlan || g_RTI_vlanTableEndPtr == __end_rti_vlan);
 }
@@ -67,7 +67,7 @@ RTI_FORCE_INLINE static bool RTI_VlanIsDynamicUninitialized(void)
  * @return size_t The record count of VLAN table.
  * @note this function should be called after dynamic table setup.
  */
-RTI_FORCE_INLINE static size_t RTI_VlanGetRecordCount(RTI_VLAN_RECORD *recordStart, RTI_VLAN_RECORD *recordEnd)
+static inline size_t RTI_VlanGetRecordCount(RTI_VLAN_RECORD *recordStart, RTI_VLAN_RECORD *recordEnd)
 {
     return (((size_t)(recordEnd) - (size_t)(recordStart)) / sizeof(RTI_VLAN_RECORD));
 }
