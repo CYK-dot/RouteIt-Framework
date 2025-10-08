@@ -5,7 +5,7 @@
  * @version 0.1
  * @date 2025-10-04
  *
- * @copyright Copyright (c) 2025 CYK-Dot, all rights reserved.
+ * @copyright Copyright (c) 2025 CYK-Dot, MIT License.
  */
 #pragma once
 

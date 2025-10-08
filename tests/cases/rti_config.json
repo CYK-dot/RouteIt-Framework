@@ -1,0 +1,7 @@
+{
+    "name": "test_cases",
+    "vlan": {
+        "output": "./test_vlanid.h",
+        "status": "enable"
+    }
+}

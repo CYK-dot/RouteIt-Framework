@@ -5,20 +5,20 @@
  * @version 0.1
  * @date 2025-10-04
  *
- * @copyright Copyright (c) 2025 CYK-Dot, all rights reserved.
+ * @copyright Copyright (c) 2025 CYK-Dot, MIT License.
  */
 #pragma once
 
 /* Header import ------------------------------------------------------------------*/
 #include <stdint.h>
+#include <stddef.h>
+#include "rti_config.h"
 
 /* Config macros -----------------------------------------------------------------*/
 
 #define RTI_TYPE_SECTION_VLAN __attribute__((section(".rti_vlan")))
 #define RTI_TYPE_SECTION_VLAN_USED __attribute__((section(".rti_vlan"), used))
-
-#define RTI_SYMBOL_SECTION_VLAN_START _rti_vlan_start
-#define RTI_SYMBOL_SECTION_VLAN_STOP _rti_vlan_stop
+#define RTI_FORCE_INLINE __attribute__((always_inline))
 
 /* Export macros -----------------------------------------------------------------*/
 
@@ -30,6 +30,9 @@ typedef enum rti_internal_errs {
     RTI_ERR_NOT_SUPPORTED,
     RTI_ERR_FAILED,
     RTI_ERR_OBJECT_EMPTY,
+    RTI_ERR_VLANTABLE_TOO_SHORT,
+    RTI_ERR_VLANTABLE_OVERFLOW,
+    RTI_ERR_VLANTABLE_NOT_SETUP,
 } RTI_ERR;
 
 /* C++ ---------------------------------------------------------------------------*/
@@ -38,6 +41,7 @@ extern "C" {
 #endif
 
 /* Exported function -------------------------------------------------------------*/
+
 
 /* C++ ---------------------------------------------------------------------------*/
 #ifdef __cplusplus

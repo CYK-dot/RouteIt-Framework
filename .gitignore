@@ -56,6 +56,11 @@ dkms.conf
 
 # rti_test build
 tests/build/
+__pycache__/
 
 # VSCode
-.vscode/
+.vscode/.BROWSE.*
+.vscode/settings.json
+
+# documentation
+route_it/doc/
