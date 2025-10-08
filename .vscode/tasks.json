@@ -63,7 +63,7 @@
             "command": "powershell",
             "args": [
                 "-Command",
-                "cd 'tests/build'; $env:GTEST_COLOR=1; .\\RouteItFramework_Test.exe"
+                "cd 'tests/build'; $env:GTEST_COLOR=1; .\\RouteItFramework_Test.exe; .\\RouteItFramework_TestVlanCommon.exe; .\\RouteItFramework_TestVlanEmpty.exe; .\\RouteItFramework_TestVlanGenerate.exe"
             ],
             "group": "build",
             "presentation": {

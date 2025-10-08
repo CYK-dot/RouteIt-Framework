@@ -17,6 +17,14 @@ jobs:
         submodules: recursive
         token: ${{ secrets.GITHUB_TOKEN }}
       
+    - name: Cache APT packages
+      uses: actions/cache@v4
+      with:
+        path: /var/cache/apt/archives
+        key: ${{ runner.os }}-apt-${{ hashFiles('**/CMakeLists.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-apt-
+
     - name: Install dependencies
       run: |
         sudo apt-get update
@@ -26,6 +34,18 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
+    
+    - name: Cache pip packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt', '**/pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install python dependencies
+      run: |
+        pip install jinja2
 
     - name: Build tests
       run: |
@@ -41,6 +61,7 @@ jobs:
         ./RouteItFramework_Test
         ./RouteItFramework_TestVlanCommon
         ./RouteItFramework_TestVlanEmpty
+        ./RouteItFramework_TestVlanGenerate
         
     - name: Test status
       run: echo "Good Job! All tests passed!"

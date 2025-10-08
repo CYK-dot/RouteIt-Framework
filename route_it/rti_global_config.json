@@ -1,5 +1,8 @@
 {
     "project_dir": "../",
     "version": "1.0.0",
-    "description": "示例项目"
+    "description": "示例项目",
+    "vlan": {
+        "auto_vlanid_start" : "100"
+    }
 }
